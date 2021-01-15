@@ -40,9 +40,9 @@ def scrape_data():
 
     soup = BeautifulSoup(html, 'html.parser')
 
-    title = soup.find_all('div', class_="content_title")[0].text
+    title = soup.find_all('div', class_="content_title")[-1].text
 
-    preview = soup.find_all('div', class_="rollover_description_inner")[0].text
+    preview = soup.find_all('div', class_="rollover_description_inner")[-1].text
 
     description = preview
     
@@ -85,6 +85,30 @@ def scrape_data():
     ]
 
     m2m_vars["hem_img"]= hemisphere_image_urls
+
+    url4="https://www.nasa.gov/mission_pages/msl/images/index.html"
+
+    browser = init_browser()
+
+    browser.visit(url4)
+
+    html2 = browser.html
+
+    soup4 = BeautifulSoup(html2, 'html.parser')
+
+    browser.quit()
+
+    img_src=soup4.find_all("img")[4]['src']
+
+    baseURL = "https://www.nasa.gov"
+
+    feat_img=f'{baseURL}{img_src}'
+    
+    m2m_vars["feat_img"] = feat_img
+
+
+
+
 
 
 
